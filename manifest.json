@@ -2,14 +2,22 @@
     "id": "/frota-app/",
     "name": "Gestão de Frotas",
     "short_name": "Frotas",
-    "description": "Sistema de Cadastro de Veículos com sincronização Firebase",
+    "description": "Sistema de Cadastro de Veículos com sincronização em nuvem. Gerencie sua frota de caminhões e veículos com facilidade.",
     "start_url": "./index.html",
     "scope": "./",
     "display": "standalone",
-    "orientation": "portrait",
+    "orientation": "any",
+    "dir": "ltr",
+    "lang": "pt-BR",
     "background_color": "#f5f1eb",
     "theme_color": "#2c3e50",
     "prefer_related_applications": false,
+    "categories": [
+        "business",
+        "productivity",
+        "utilities"
+    ],
+    "iarc_rating_id": "",
     "icons": [
         {
             "src": "icon-192.png",
@@ -18,29 +26,54 @@
             "purpose": "any"
         },
         {
-            "src": "icon-512.png",
+            "src": "icon-maskable.png",
             "sizes": "512x512",
             "type": "image/png",
-            "purpose": "any"
+            "purpose": "maskable"
         },
         {
             "src": "icon-512.png",
             "sizes": "512x512",
             "type": "image/png",
-            "purpose": "maskable"
+            "purpose": "any"
         }
     ],
     "screenshots": [
         {
-            "src": "screenshot.png",
+            "src": "screenshot-wide.png",
             "sizes": "1280x720",
             "type": "image/png",
-            "form_factor": "wide"
+            "form_factor": "wide",
+            "label": "Tela principal do sistema de gestão de frotas"
+        },
+        {
+            "src": "screenshot-narrow.png",
+            "sizes": "540x720",
+            "type": "image/png",
+            "form_factor": "narrow",
+            "label": "Visualização mobile do app"
         }
     ],
-    "categories": [
-        "business",
-        "utilities"
+    "shortcuts": [
+        {
+            "name": "Novo Veículo",
+            "short_name": "Novo",
+            "description": "Cadastrar novo veículo",
+            "url": "./index.html?action=new",
+            "icons": [
+                {
+                    "src": "icon-192.png",
+                    "sizes": "192x192"
+                }
+            ]
+        }
     ],
-    "lang": "pt-BR"
+    "related_applications": [],
+    "handle_links": "preferred",
+    "launch_handler": {
+        "client_mode": "navigate-existing"
+    },
+    "edge_side_panel": {
+        "preferred_width": 400
+    }
 }
