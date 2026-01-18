@@ -17,25 +17,18 @@
         "productivity",
         "utilities"
     ],
-    "iarc_rating_id": "",
     "icons": [
         {
-            "src": "icon-192.png",
-            "sizes": "192x192",
-            "type": "image/png",
+            "src": "icon.svg",
+            "sizes": "any",
+            "type": "image/svg+xml",
             "purpose": "any"
         },
         {
-            "src": "icon-maskable.png",
-            "sizes": "512x512",
-            "type": "image/png",
+            "src": "icon.svg",
+            "sizes": "192x192 512x512",
+            "type": "image/svg+xml",
             "purpose": "maskable"
-        },
-        {
-            "src": "icon-512.png",
-            "sizes": "512x512",
-            "type": "image/png",
-            "purpose": "any"
         }
     ],
     "screenshots": [
@@ -59,21 +52,11 @@
             "name": "Novo Veículo",
             "short_name": "Novo",
             "description": "Cadastrar novo veículo",
-            "url": "./index.html?action=new",
-            "icons": [
-                {
-                    "src": "icon-192.png",
-                    "sizes": "192x192"
-                }
-            ]
+            "url": "./index.html?action=new"
         }
     ],
-    "related_applications": [],
     "handle_links": "preferred",
     "launch_handler": {
         "client_mode": "navigate-existing"
-    },
-    "edge_side_panel": {
-        "preferred_width": 400
     }
 }
