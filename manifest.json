@@ -1,21 +1,30 @@
 {
     "name": "Gestão de Frotas",
     "short_name": "Frotas",
-    "description": "Sistema de Cadastro de Veículos",
-    "start_url": "/",
+    "description": "Sistema de Cadastro de Veículos com sincronização Firebase",
+    "start_url": "/index.html",
+    "scope": "/",
     "display": "standalone",
+    "orientation": "portrait",
     "background_color": "#f5f1eb",
     "theme_color": "#2c3e50",
     "icons": [
         {
             "src": "icon-192.png",
             "sizes": "192x192",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "any maskable"
         },
         {
             "src": "icon-512.png",
             "sizes": "512x512",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "any maskable"
         }
-    ]
+    ],
+    "categories": [
+        "business",
+        "utilities"
+    ],
+    "lang": "pt-BR"
 }

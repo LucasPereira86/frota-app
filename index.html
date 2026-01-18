@@ -160,6 +160,17 @@
 
     <!-- App Logic -->
     <script src="app.js"></script>
+
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('Service Worker registrado'))
+                    .catch(err => console.warn('Erro no Service Worker:', err));
+            });
+        }
+    </script>
 </body>
 
 </html>
