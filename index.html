@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sistema de Cadastro de Frotas">
+    <meta name="theme-color" content="#2c3e50">
+    <title>Gestão de Frotas</title>
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon-192.png">
+
+    <!-- Google Fonts - Classic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@400;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">🚛</span>
+                    <h1>Gestão de Frotas</h1>
+                </div>
+                <p class="tagline">Controle de Veículos e Chassis</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Actions Bar -->
+            <div class="actions-bar">
+                <button class="btn btn-primary" id="novoVeiculoBtn">
+                    <span>➕ Novo Veículo</span>
+                </button>
+                <div class="search-wrapper">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="searchInput" placeholder="Buscar por frota, chassis ou tipo...">
+                </div>
+                <div class="sync-status" id="syncStatus">
+                    <span class="status-icon">☁️</span>
+                    <span class="status-text">Sincronizado</span>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="stats-bar">
+                <span id="totalCount">Total: 0 veículos</span>
+                <span id="resultCount">Mostrando: 0</span>
+            </div>
+
+            <!-- Vehicles Table -->
+            <div class="table-container">
+                <table id="frotaTable">
+                    <thead>
+                        <tr>
+                            <th class="col-frota">FROTA</th>
+                            <th class="col-chassis">CHASSIS</th>
+                            <th class="col-tipo">TIPO</th>
+                            <th class="col-acoes">AÇÕES</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- Dados serão inseridos via JavaScript -->
+                    </tbody>
+                </table>
+                <div class="no-results hidden" id="noResults">
+                    <span class="no-results-icon">🚗</span>
+                    <p>Nenhum veículo encontrado</p>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Gestão de Frotas v1.0</p>
+        </footer>
+    </div>
+
+    <!-- Modal de Cadastro/Edição -->
+    <div class="modal-overlay hidden" id="modalOverlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="modalTitle">Novo Veículo</h2>
+                <button class="modal-close" id="modalClose">✕</button>
+            </div>
+            <div class="modal-body">
+                <form id="veiculoForm">
+                    <input type="hidden" id="veiculoId">
+
+                    <div class="form-group">
+                        <label for="inputFrota">FROTA (5 dígitos)</label>
+                        <input type="text" id="inputFrota" maxlength="5" pattern="[0-9]{5}" placeholder="Ex: 33001"
+                            required>
+                        <small>Código numérico de 5 dígitos</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputChassis">CHASSIS</label>
+                        <input type="text" id="inputChassis" placeholder="Ex: 1NWC570HJMT210059"
+                            style="text-transform: uppercase;" required>
+                        <small>Número do chassis do veículo</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputTipo">TIPO DO VEÍCULO</label>
+                        <input type="text" id="inputTipo" placeholder="Ex: Volvo 540 Euro 6">
+                        <small>Modelo/descrição do veículo (opcional)</small>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="btnCancelar">Cancelar</button>
+                <button class="btn btn-primary" id="btnSalvar">💾 Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmação de Exclusão -->
+    <div class="modal-overlay hidden" id="deleteModalOverlay">
+        <div class="modal modal-small">
+            <div class="modal-header modal-header-danger">
+                <h2>Confirmar Exclusão</h2>
+            </div>
+            <div class="modal-body">
+                <p>Tem certeza que deseja excluir o veículo <strong id="deleteVeiculoInfo"></strong>?</p>
+                <p class="text-danger">Esta ação não pode ser desfeita.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="btnCancelDelete">Cancelar</button>
+                <button class="btn btn-danger" id="btnConfirmDelete">🗑️ Excluir</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast hidden" id="toast">
+        <span class="toast-message"></span>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay hidden" id="loadingOverlay">
+        <div class="spinner"></div>
+        <p>Carregando...</p>
+    </div>
+
+    <!-- App Logic -->
+    <script src="app.js"></script>
+</body>
+
+</html>
